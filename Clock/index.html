@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <script src="../build/react.development.js"></script>
+    <script src="../build/react-dom.development.js"></script>
+    <script src="../build/babel.min.js"></script>
+    <script src="../build/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+    // function Clock(props) {
+    //   return (
+        // <div>
+    //       <h1>汪酱！</h1>
+    //       <h2>It is {props.data.toLocaleTimeString()}</h2>
+    //     </div>
+    //   )
+    // }
+
+    class Clock extends React.Component {
+      constructor(props){
+        super(props)
+        this.state={
+          date: new Date()
+        }
+      }
+
+      componentDidMount() {
+        this.timerID = setInterval(
+          () => this.tick(),1000);
+      }
+      
+      componentWillUnmount() {
+        clearInterval(this.timerID);
+      }
+
+      tick() {
+        this.setState({
+          date: new Date()
+        });
+      }
+
+      render(){
+        const { date } = this.state
+        return (
+          <div>
+            <h1>汪酱！</h1>
+            <h2>It is {date.toLocaleTimeString()}</h2>
+          </div>
+        )
+      }
+    }
+      
+    ReactDOM.render(
+      <Clock />,
+      document.getElementById('root')
+    );
+    
+    </script>
+  </body>
+</html>

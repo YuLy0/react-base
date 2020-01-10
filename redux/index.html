@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <script src="../build/react.development.js"></script>
+    <script src="../build/react-dom.development.js"></script>
+    <script src="../build/babel.min.js"></script>
+    <script src="../build/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id="example"></div>
+  </body>
+</html>
+<script type="text/babel">
+
+  const createStore = function (initState) {
+    let state = initState;
+    let listeners = [];
+  
+    function subscribe(listener) {
+      listeners.push(listener);
+    }
+  
+    function changeState(newState) {
+      state = newState;
+      for (let i = 0; i < listeners.length; i++) {
+        const listener = listeners[i];
+        listener();
+      }
+    }
+  
+    function getState() {
+      return state;
+    }
+  
+    return {
+      subscribe,
+      changeState,
+      getState
+    }
+  }
+
+  let initState = {
+    counter: {
+      count: 0
+    },
+    info: {
+      name: '',
+      description: ''
+    }
+  }
+  
+  let store = createStore(initState);
+
+  store.subscribe(() => {
+    let state = store.getState();
+    console.log(`${state.info.name}：${state.info.description}`);
+  });
+  store.subscribe(() => {
+    let state = store.getState();
+    console.log(state.counter.count);
+  })
+  store.changeState({
+    ...store.getState(),
+    info: {
+      name: '汪酱',
+      description: '死肥宅'
+    }
+  });
+  store.changeState({
+    ...store.getState(),
+    counter: {
+      count: 1
+    }
+  });
+
+  // store
+  // 1.维持应用的state
+  // 2.提供getState方法获取state
+  // 3.提供dispatch更新state
+  // 4.通过subscribe注册监听器
+  // 5.通过subscribe返回的方法注销监听器
+</script>

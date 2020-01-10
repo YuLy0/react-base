@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <script src="../build/react.development.js"></script>
+    <script src="../build/react-dom.development.js"></script>
+    <script src="../build/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="example"></div>
+  </body>
+  <script type="text/babel">
+    let names = ['汪酱', '旺旺', '旺财']
+
+    ReactDOM.render(
+      <div>
+        {
+          names.map((item,index)=> (
+            <div key={index}>Hellow, {item}!</div>
+          ))
+        }
+      </div>,
+      document.getElementById('example')
+    )
+  </script>
+</html>
